@@ -1,6 +1,5 @@
 #!/usr/bin/python
-import time
-import urlparse
+import time, urlparse, os.path
 from marionette import Marionette
 from marionette_driver import By
 
@@ -24,14 +23,16 @@ def export_list(client):
         client.switch_to_window(all_tab[-1])
         post_url = urlparse.urlparse(client.get_url())
         post_id = str(urlparse.parse_qs(post_url.query)['post'][0])
-        # Export the HTMl
-        export = open('./export-html/post-' + post_id + '.html', 'w+')
-        export.write(client.page_source.encode('utf-8'))
-        export.close()
-        client.close()
-        print('Exported ' + post_id + ' ID')
-        client.switch_to_window(all_tab[0])
-        # Repeat the process
+        path = './export-html/post-' + post_id + '.html'
+        if not os.path.isfile(path):
+            # Export the HTMl
+            export = open(path, 'w+')
+            export.write(client.page_source.encode('utf-8'))
+            export.close()
+            client.close()
+            print('Exported ' + post_id + ' ID')
+            client.switch_to_window(all_tab[0])
+            # Repeat the process
 
     export_pages(client)
 

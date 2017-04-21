@@ -1,11 +1,12 @@
 #!/usr/bin/python
-import lxml.html, os, json
+import lxml.html, os, json, re
 from lxml.cssselect import CSSSelector
 
 source = './export-html/'
 for root, dirs, filenames in os.walk(source):
     for f in filenames:
         fullpath = os.path.join(source, f)
+        print('Parsed ' + f)
         data = {}
         html = open(fullpath, 'r').read()
         # Parser the html
@@ -27,6 +28,38 @@ for root, dirs, filenames in os.walk(source):
         sel = CSSSelector('#post_ID')
         results = sel(tree)
         data['ID'] = results[0].value
+        # Assemble the date
+        sel = CSSSelector('#hidden_jj')
+        results = sel(tree)
+        day = str(results[0].value)
+        sel = CSSSelector('#hidden_mm')
+        results = sel(tree)
+        month = str(results[0].value)
+        sel = CSSSelector('#hidden_aa')
+        results = sel(tree)
+        year = str(results[0].value)
+        sel = CSSSelector('#hidden_hh')
+        results = sel(tree)
+        hour = str(results[0].value)
+        sel = CSSSelector('#hidden_mn')
+        results = sel(tree)
+        minute = str(results[0].value)
+        data['post_date'] = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':00' 
+        sel = CSSSelector('.attachment-266x266')
+        results = sel(tree)
+        if len(results) > 0:
+            data['featured_image'] = results[0].get('src').replace('-300x300', '')
+        # Get the category
+        sel = CSSSelector('.selectit input[checked="checked"]')
+        results = sel(tree)
+        data['category'] = {}
+        for cat in results:
+            if cat.value != 'open':
+                sel = CSSSelector('#category-' + cat.value + ' .selectit')
+                results_tag = sel(tree)
+                if len(results_tag) > 0:
+                    tag_name = lxml.html.tostring(results_tag[0])
+                    data['category'][cat.value] = re.sub(re.compile('<.*?>'), '', tag_name).strip()
 
         archive = open('export-json/' + f.replace('.html', '') + '.json', 'w')
         archive.write(json.dumps(data, indent=4, sort_keys=True))

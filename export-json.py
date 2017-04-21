@@ -27,8 +27,7 @@ for root, dirs, filenames in os.walk(source):
         sel = CSSSelector('#post_ID')
         results = sel(tree)
         data['ID'] = results[0].value
-        
-        archive = open('export-json/' + f + '.json', 'w')
+
+        archive = open('export-json/' + f.replace('.html', '') + '.json', 'w')
         archive.write(json.dumps(data, indent=4, sort_keys=True))
         archive.close()
-        exit

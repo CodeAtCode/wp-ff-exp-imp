@@ -3,6 +3,15 @@ import time, urlparse, os.path
 from marionette import Marionette
 from marionette_driver import By, Actions
 
+
+def open_page(client, post):
+    while len(client.window_handles) == 1:
+#        client.find_element(By.CSS_SELECTOR, 'body').click()
+        print('click')
+        Actions(client).middle_click(post).perform()
+        time.sleep(1)
+
+
 # Connect to Firefox
 client = Marionette(host='localhost', port=2828)
 client.start_session()
@@ -13,13 +22,10 @@ def export_list(client):
         posts = client.find_elements(By.CSS_SELECTOR, 'td.title a.row-title')
 
         for post in posts:
-            Actions(client).middle_click(post).perform()
-            if len(client.window_handles) == 1:
-                print('Waiting loading of the page')
-                time.sleep(6)
+            open_page(client, post)
+            time.sleep(5)
             # Switch to the tab opened
             client.switch_to_window(client.window_handles[-1])
-            print('Switch to the new page')
             post_url = urlparse.urlparse(client.get_url())
             post_id = str(urlparse.parse_qs(post_url.query)['post'][0])
             path = './export-html/post-' + post_id + '.html'

@@ -6,10 +6,10 @@ from marionette_driver import By, Actions
 
 def open_page(client, post):
     while len(client.window_handles) == 1:
-#        client.find_element(By.CSS_SELECTOR, 'body').click()
-        print('click')
+        removeOtherStrings = "window.scrollTo(0,(Math.floor(Math.random() * (document.documentElement.scrollHeight))))"
+        client.execute_script(removeOtherStrings)
         Actions(client).middle_click(post).perform()
-        time.sleep(1)
+        time.sleep(0.1)
 
 
 # Connect to Firefox

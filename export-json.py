@@ -44,11 +44,15 @@ for root, dirs, filenames in os.walk(source):
         sel = CSSSelector('#hidden_mn')
         results = sel(tree)
         minute = str(results[0].value)
-        data['post_date'] = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':00' 
+        data['post_date'] = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':00'
         sel = CSSSelector('.attachment-266x266')
         results = sel(tree)
         if len(results) > 0:
             data['featured_image'] = results[0].get('src').replace('-300x300', '')
+            data['featured_image_desc'] = results[0].get('alt')
+            sel = CSSSelector('#_thumbnail_id')
+            results = sel(tree)
+            data['featured_image_id'] = results[0].value
         # Get the category
         sel = CSSSelector('.selectit input[checked="checked"]')
         results = sel(tree)

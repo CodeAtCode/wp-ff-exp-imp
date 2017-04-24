@@ -56,11 +56,18 @@ for root, dirs, filenames in os.walk(source):
         for cat in results:
             if cat.value != 'open':
                 sel = CSSSelector('#category-' + cat.value + ' .selectit')
-                results_tag = sel(tree)
-                if len(results_tag) > 0:
-                    tag_name = lxml.html.tostring(results_tag[0])
-                    data['category'][cat.value] = re.sub(re.compile('<.*?>'), '', tag_name).strip()
-
+                results_cat = sel(tree)
+                if len(results_cat) > 0:
+                    cat_name = lxml.html.tostring(results_cat[0])
+                    data['category'][cat.value] = re.sub(re.compile('<.*?>'), '', cat_name).strip()
+        # Get the tags
+        sel = CSSSelector('.tagchecklist span')
+        results = sel(tree)
+        data['tag'] = []
+        if len(results) > 0:
+            for tag in results:
+                tag_name = lxml.html.tostring(tag).replace('&#160;', '')
+                data['tag'].append(re.sub(re.compile('<.*?>'), '', tag_name).replace('X', '').strip())
         archive = open('export-json/' + f.replace('.html', '') + '.json', 'w')
         archive.write(json.dumps(data, indent=4, sort_keys=True))
         archive.close()

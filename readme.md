@@ -19,4 +19,8 @@ Create a single JSON file merging from all the rest using `jq` on the folder `js
 
 ## json2wxr.js
 
-npm install f1nnix/node-wxr
+```
+npm install https://github.com/f1nnix/node-wxr
+```
+
+Use the `node-wxr` module to covnert the JSON generated with the previous script in the same folder with a xml file using the `wxr` standard.

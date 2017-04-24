@@ -1,2 +1,4 @@
 export-html/*
 export-json/*
+json-result/*
+node_modules

@@ -16,3 +16,7 @@ Convert the HTML exported from the first script in a JSON files on the folder `e
 ## single-json.sh
 
 Create a single JSON file merging from all the rest using `jq` on the folder `json-result`.
+
+## json2wxr.js
+
+npm install f1nnix/node-wxr

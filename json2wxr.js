@@ -51,7 +51,7 @@ for (var i = 0; i < obj.length; ++i) {
 	importer.addCategory(tag_post);
 	tag_posts.push(tag_post);
   }
-  // Import
+  // Add post
   importer.addPost({
 	id: obj[i].ID,
 	title: obj[i].post_title,
@@ -66,7 +66,7 @@ for (var i = 0; i < obj.length; ++i) {
   });
   // Add attachment
   importer.addAttachment({
-	id: obj[i].featured_image_is,
+	id: obj[i].featured_image_id,
 	date: obj[i].post_date,
 	title: obj[i].featured_image_desc,
 	author: "wp_user_replace",

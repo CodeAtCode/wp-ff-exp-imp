@@ -46,7 +46,8 @@ for (var i = 0; i < obj.length; ++i) {
   for (var tag_id in obj[i].tag) {
 	tag_post = {
 	  title: obj[i].tag[tag_id],
-	  slug: string_to_slug(obj[i].tag[tag_id])
+	  slug: string_to_slug(obj[i].tag[tag_id]),
+//	  id:
 	};
 	importer.addCategory(tag_post);
 	tag_posts.push(tag_post);
@@ -61,19 +62,20 @@ for (var i = 0; i < obj.length; ++i) {
 	post: obj[i].post_type,
 	author: "wp_user_replace",
 	contentEncoded: obj[i].post_content.trim(),
+	featured_image_id: obj[i].featured_image_id,
 	categories: cat_posts,
 	tags: tag_posts
   });
   // Add attachment
-  importer.addAttachment({
-	id: obj[i].featured_image_id,
-	date: obj[i].post_date,
-	title: obj[i].featured_image_desc,
-	author: "wp_user_replace",
-	description: obj[i].featured_image_desc,
-	parent: obj[i].ID,
-	attachmentURL: obj[i].featured_image
-  });
+   importer.addAttachment({
+ 	id: obj[i].featured_image_id,
+ 	date: obj[i].post_date,
+ 	title: obj[i].featured_image_desc,
+ 	author: "wp_user_replace",
+ 	description: obj[i].featured_image_desc,
+ 	parent: obj[i].ID,
+ 	attachmentURL: obj[i].featured_image
+   });
 }
 
 var file_xml = importer.stringify();

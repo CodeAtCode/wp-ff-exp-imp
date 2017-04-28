@@ -67,15 +67,18 @@ for (var i = 0; i < obj.length; ++i) {
 	tags: tag_posts
   });
   // Add attachment
-   importer.addAttachment({
- 	id: obj[i].featured_image_id,
- 	date: obj[i].post_date,
- 	title: obj[i].featured_image_desc,
- 	author: "wp_user_replace",
- 	description: obj[i].featured_image_desc,
- 	parent: obj[i].ID,
- 	attachmentURL: obj[i].featured_image
-   });
+  if (obj[i].hasOwnProperty('featured_image_id')) {
+	importer.addAttachment({
+	  id: obj[i].featured_image_id,
+	  date: obj[i].post_date,
+	  title: obj[i].featured_image_desc,
+	  name: string_to_slug(obj[i].featured_image_desc),
+	  author: "wp_user_replace",
+	  description: obj[i].featured_image_desc,
+	  parent: obj[i].ID,
+	  attachmentURL: obj[i].featured_image
+	});
+  }
 }
 
 var file_xml = importer.stringify();

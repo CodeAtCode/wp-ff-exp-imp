@@ -1,7 +1,12 @@
 # WordPress Firefox Exporter Importer
 
-It is a suite of tools to export posts from the html on the backend area of every post using Firefox and a plugin importer from JSON.  
-Why this trange workaround or hack? Because sometimes old owner of the website don't give to you access to a db or Rest api or feed rss (with text) or xml rpc.
+It is a suite of tools to export posts from the HTML on the backend area of every post using Firefox, JSON and WXR.  
+
+### Why this strange workaround or hack?
+I will tell you a story, there was an our customer where we are doing a new website and after months of working he discovered that the old agency that done the actual website don't want to give to them the backup.  
+We discovered that the RSS feed have content incomplete, XML-RPC enabled only for posting and not reading, REST API disabled so we had no choice to import the content of old site in the new one.  
+Also the behaviour of the old agency is not very good, because they are not the owner of the website but we don't know the contract made with them so we had only a chance to have in reasonable times the backup.   
+So we had the access on the website as editor, so 
 
 ## export-html.py
 

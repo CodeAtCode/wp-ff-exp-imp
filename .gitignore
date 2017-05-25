@@ -1,4 +1,7 @@
 export-html/*
 export-json/*
 json-result/*
+!export-html/.gitkeep
+!export-json/.gitkeep
+!json-result/.gitkeep
 node_modules

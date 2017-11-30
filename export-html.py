@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import time, urlparse, os.path
-from marionette import Marionette
+from marionette_driver.marionette import Marionette
 from marionette_driver import By, Actions
 
 # Connect to Firefox

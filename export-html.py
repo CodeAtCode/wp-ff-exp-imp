@@ -67,3 +67,4 @@ def export_pages(client):
 
 
 export_list(client)
+client.close()

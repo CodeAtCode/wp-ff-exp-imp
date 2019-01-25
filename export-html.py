@@ -11,15 +11,16 @@ client.start_session()
 def open_page(client, post):
     while len(client.window_handles) == 1:
         # Fuzzy is required to enable the browser to lost the focus and a click that work
-        removeOtherStrings = "window.scrollTo(0,(Math.floor(Math.random() * (document.documentElement.scrollHeight))))"
-        client.execute_script(removeOtherStrings)
+        # To use only if the website lags a lot and is full of js trash
+        # removeOtherStrings = "window.scrollTo(0,(Math.floor(Math.random() * (document.documentElement.scrollHeight))))"
+        # client.execute_script(removeOtherStrings)
         Actions(client).middle_click(post).perform()
         time.sleep(0.4)
 
 
 def export_html(client, post):
     open_page(client, post)
-    time.sleep(6)
+    time.sleep(4)
     # Switch to the tab opened
     client.switch_to_window(client.window_handles[-1])
     post_url = urlparse.urlparse(client.get_url())
